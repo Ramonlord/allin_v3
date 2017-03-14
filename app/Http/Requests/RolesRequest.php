@@ -2,16 +2,15 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
-class RolesRequest extends Request {
-
+class RolesRequest extends Request
+{
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize() {
+    public function authorize()
+    {
         return true;
     }
 
@@ -20,7 +19,8 @@ class RolesRequest extends Request {
      *
      * @return array
      */
-    public function rules() {
+    public function rules()
+    {
         switch ($this->method()) {
             case 'GET':
             case 'DELETE': {
@@ -34,15 +34,15 @@ class RolesRequest extends Request {
             case 'PUT':
             case 'PATCH': {
                     return [
-                        'name' => 'required|max:255|unique:roles,name,' . $this->input('role_id'),
+                        'name' => 'required|max:255|unique:roles,name,'.$this->input('role_id'),
                     ];
                 }
             default:
                 break;
         }
+
         return [
                 //
         ];
     }
-
 }

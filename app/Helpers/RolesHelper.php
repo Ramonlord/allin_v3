@@ -10,21 +10,23 @@ function hasAccess($route = '')
     if (isset($routes)) {
         return in_array($route, $routes);
     }
+
     return false;
 }
 
 function hasPackage($id = '')
 {
-	if(!\Auth::guest()){
-		if ($id == getSetting('DEFAULT_PACKAGE_ID') && (\Auth::user()->package->id == $id)) {
-			return true;
-		} elseif ((\Auth::user()->package->id == $id) && (\Auth::user()->subscribed('MEMBERSHIP'))) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	return false;
+    if (!\Auth::guest()) {
+        if ($id == getSetting('DEFAULT_PACKAGE_ID') && (\Auth::user()->package->id == $id)) {
+            return true;
+        } elseif ((\Auth::user()->package->id == $id) && (\Auth::user()->subscribed('MEMBERSHIP'))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    return false;
 }
 /*
  *

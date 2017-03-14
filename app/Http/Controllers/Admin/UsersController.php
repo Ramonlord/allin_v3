@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Package;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
+use App\Package;
 use App\Role;
 use App\User;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-
     /**
      * UsersController constructor.
      */
@@ -49,23 +47,23 @@ class UsersController extends Controller
 
     /**
      * @param UserRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UserRequest $request)
     {
-
         $account = [];
 
         $avatar = 'avatar.png';
 
         if ($request->hasFile('avatar')) {
-            $destinationPath = public_path() . '/uploads/avatars';
+            $destinationPath = public_path().'/uploads/avatars';
 
-            $avatar = hash('sha256', mt_rand()) . '.' . $request->file('avatar')->getClientOriginalExtension();
+            $avatar = hash('sha256', mt_rand()).'.'.$request->file('avatar')->getClientOriginalExtension();
 
             $request->file('avatar')->move($destinationPath, $avatar);
 
-            \Image::make(asset('uploads/avatars/' . $avatar))->fit(300, null, null, 'top-left')->save('uploads/avatars/' . $avatar);
+            \Image::make(asset('uploads/avatars/'.$avatar))->fit(300, null, null, 'top-left')->save('uploads/avatars/'.$avatar);
         }
 
         $account['avatar'] = $avatar;
@@ -93,13 +91,14 @@ class UsersController extends Controller
 
         $package_message = $valid_package ? '' : ' Please Note you can\'t add package without Stripe Subscription';
 
-        $status_message = $user->name . ' has been added Successfully.' . $package_message;
+        $status_message = $user->name.' has been added Successfully.'.$package_message;
 
         return redirect('admin/users')->with('success', $status_message);
     }
 
     /**
      * @param User $user
+     *
      * @return mixed
      */
     public function show(User $user)
@@ -109,6 +108,7 @@ class UsersController extends Controller
 
     /**
      * @param User $user
+     *
      * @return mixed
      */
     public function edit(User $user)
@@ -124,24 +124,24 @@ class UsersController extends Controller
 
     /**
      * @param UserRequest $request
-     * @param User $user
+     * @param User        $user
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UserRequest $request, User $user)
     {
-
         if ($request->hasFile('avatar')) {
-            $destinationPath = public_path() . '/uploads/avatars';
+            $destinationPath = public_path().'/uploads/avatars';
 
-            if ($user->avatar != "uploads/avatars/avatar.png") {
+            if ($user->avatar != 'uploads/avatars/avatar.png') {
                 @unlink($user->avatar);
             }
 
-            $avatar = hash('sha256', mt_rand()) . '.' . $request->file('avatar')->getClientOriginalExtension();
+            $avatar = hash('sha256', mt_rand()).'.'.$request->file('avatar')->getClientOriginalExtension();
 
             $request->file('avatar')->move($destinationPath, $avatar);
 
-            \Image::make(asset('uploads/avatars/' . $avatar))->fit(300, null, null, 'top-left')->save('uploads/avatars/' . $avatar);
+            \Image::make(asset('uploads/avatars/'.$avatar))->fit(300, null, null, 'top-left')->save('uploads/avatars/'.$avatar);
 
             $user->avatar = $avatar;
         }
@@ -152,11 +152,11 @@ class UsersController extends Controller
 
         if ($request->input('package_id')) {
             if ($request->input('package_id') != getSetting('DEFAULT_PACKAGE_ID')) {
-                /**
+                /*
                  * check if the user subscribed and new package selected
                  */
                 if ($user->subscribed('MEMBERSHIP')) {
-                    /**
+                    /*
                      * Swap subscription plan
                      */
                     if ($request->input('package_id') != $user->package_id) {
@@ -166,12 +166,12 @@ class UsersController extends Controller
                     }
                 } else {
                     /**
-                     * can't add package without Stripe Subscription
+                     * can't add package without Stripe Subscription.
                      */
                     $valid_package = false;
                 }
             } else {
-                /**
+                /*
                  * Assign Default free package to user
                  */
                 $user->package_id = getSetting('DEFAULT_PACKAGE_ID');
@@ -180,7 +180,7 @@ class UsersController extends Controller
                 }
             }
         } else {
-            /**
+            /*
              * reset user package
              */
             $user->package_id = 0;
@@ -201,26 +201,27 @@ class UsersController extends Controller
 
         $package_message = $valid_package ? '' : ' Please Note you can\'t add package without Stripe Subscription';
 
-        $status_message = $user->name . ' has been updated Successfully.' . $package_message;
+        $status_message = $user->name.' has been updated Successfully.'.$package_message;
 
         return redirect('admin/users')->with('success', $status_message);
     }
 
     /**
      * @param Request $request
-     * @param User $user
-     * @return string
+     * @param User    $user
+     *
      * @throws \Exception
+     *
+     * @return string
      */
-    public
-    function destroy(Request $request, User $user)
+    public function destroy(Request $request, User $user)
     {
         if ($request->ajax()) {
             $user->delete();
+
             return response()->json(['success' => 'User has been deleted successfully']);
         } else {
             return 'You can\'t proceed in delete operation';
         }
     }
-
 }

@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class PageRequest extends Request
 {
     /**
@@ -30,22 +28,23 @@ class PageRequest extends Request
             }
             case 'POST': {
                 return [
-                    'title' => 'required|max:255',
+                    'title'   => 'required|max:255',
                     'content' => 'required',
-                    'slug' => 'required|unique:pages',
+                    'slug'    => 'required|unique:pages',
                 ];
             }
             case 'PUT':
             case 'PATCH': {
                 return [
-                    'title' => 'required|max:255',
+                    'title'   => 'required|max:255',
                     'content' => 'required',
-                    'slug' => 'required|unique:pages,slug,' . $this->input('page_id')
+                    'slug'    => 'required|unique:pages,slug,'.$this->input('page_id'),
                 ];
             }
             default:
                 break;
         }
+
         return [
             //
         ];

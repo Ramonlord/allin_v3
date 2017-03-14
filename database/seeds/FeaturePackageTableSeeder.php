@@ -33,7 +33,7 @@ class FeaturePackageTableSeeder extends Seeder
             ['package_id' => 4, 'feature_id' => 3, 'spec' => '16 GB RAM', 'created_at' => \Carbon::now()],
             ['package_id' => 4, 'feature_id' => 4, 'spec' => '8 Core CPU', 'created_at' => \Carbon::now()],
             ['package_id' => 4, 'feature_id' => 5, 'spec' => '10 Add-on Domain', 'created_at' => \Carbon::now()],
-            ['package_id' => 4, 'feature_id' => 6, 'spec' => '500 Email Address', 'created_at' => \Carbon::now()]
+            ['package_id' => 4, 'feature_id' => 6, 'spec' => '500 Email Address', 'created_at' => \Carbon::now()],
         ]);
     }
 }

@@ -3,13 +3,12 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
     use Billable;
-    
+
     protected $dates = ['trial_ends_at', 'subscription_ends_at', 'deleted_at'];
     /**
      * The attributes that aren't mass assignable.
@@ -37,7 +36,7 @@ class User extends Authenticatable
 
     public function getAvatarAttribute()
     {
-        return 'uploads/avatars/' . $this->attributes['avatar'];
+        return 'uploads/avatars/'.$this->attributes['avatar'];
     }
 
     public function package()

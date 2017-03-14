@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Requests\PageRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PageRequest;
 use App\Page;
+use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
@@ -41,30 +39,31 @@ class PagesController extends Controller
 
     /**
      * @param PageRequest $request
+     *
      * @return mixed
      */
     public function store(PageRequest $request)
     {
-        $page = new Page($request->except('_token', 'page_id','published'));
-		
-		$page->published = 0;
-		
-		if($request->input('published'))
-		{
-			$page->published = 1;
-		}
-        
-		if ($page->published) {
-            $page->published_at = \Carbon::now();;
+        $page = new Page($request->except('_token', 'page_id', 'published'));
+
+        $page->published = 0;
+
+        if ($request->input('published')) {
+            $page->published = 1;
+        }
+
+        if ($page->published) {
+            $page->published_at = \Carbon::now();
         }
 
         $page->save();
 
-        return redirect('admin/pages')->with('success', $page->title . ' has been added Successfully');
+        return redirect('admin/pages')->with('success', $page->title.' has been added Successfully');
     }
 
     /**
      * @param Page $page
+     *
      * @return mixed
      */
     public function show(Page $page)
@@ -77,16 +76,20 @@ class PagesController extends Controller
 
     /**
      * @param Page $page
+     *
      * @return mixed
      */
     public function edit(Page $page)
     {
         return view('admin.pages.create_edit', compact('page'));
-    }//edit
+    }
+
+//edit
 
     /**
      * @param PageRequest $request
-     * @param Page $page
+     * @param Page        $page
+     *
      * @return mixed
      */
     public function update(PageRequest $request, Page $page)
@@ -98,7 +101,7 @@ class PagesController extends Controller
         $page->icon = $request->input('icon');
 
         if ($page->published == 0 && $request->input('published')) {
-            $page->published_at = \Carbon::now();;
+            $page->published_at = \Carbon::now();
         }
 
         $page->published = $request->input('published');
@@ -115,12 +118,15 @@ class PagesController extends Controller
 
         $page->save();
 
-        return redirect('admin/pages')->with('success', $page->title . ' has been Updated Successfully');
-    }//update
+        return redirect('admin/pages')->with('success', $page->title.' has been Updated Successfully');
+    }
+
+//update
 
     /**
      * @param Request $request
-     * @param Page $page
+     * @param Page    $page
+     *
      * @return string
      */
     public function destroy(Request $request, Page $page)
@@ -133,5 +139,4 @@ class PagesController extends Controller
             return 'You can\'t proceed in delete operation';
         }
     }
-
 }

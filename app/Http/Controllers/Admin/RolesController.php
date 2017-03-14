@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Requests\RolesRequest;
 use App\Http\Controllers\Controller;
-use Redirect;
-use Carbon;
-use Route;
+use App\Http\Requests\RolesRequest;
 use App\Role;
+use Illuminate\Http\Request;
+use Redirect;
+use Route;
 
-class RolesController extends Controller {
-
+class RolesController extends Controller
+{
     /**
      * RolesController constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -25,7 +24,8 @@ class RolesController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         return view('admin.roles.index');
     }
 
@@ -34,7 +34,8 @@ class RolesController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
         $routes = getNamedRoutes();
 
         return view('admin.roles.create_edit')->with(compact('routes'));
@@ -43,10 +44,12 @@ class RolesController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(RolesRequest $request) {
+    public function store(RolesRequest $request)
+    {
         $name = $request->input('name');
         $routes = $request->input('routes');
 
@@ -57,26 +60,30 @@ class RolesController extends Controller {
 
         $role->save();
 
-        return Redirect::route('admin.roles.index')->with('success', $role->name . ' has been added Successfully');
+        return Redirect::route('admin.roles.index')->with('success', $role->name.' has been added Successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role) {
+    public function edit(Role $role)
+    {
         $routes = getNamedRoutes();
 
         return view('admin.roles.create_edit')->with(compact('routes', 'role'));
@@ -85,11 +92,13 @@ class RolesController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function update(RolesRequest $request, Role $role) {
+    public function update(RolesRequest $request, Role $role)
+    {
         $name = $request->input('name');
         $routes = $request->input('routes');
 
@@ -98,16 +107,18 @@ class RolesController extends Controller {
 
         $role->save();
 
-        return Redirect::route('admin.roles.index')->with('success', $role->name . ' has been updated Successfully');
+        return Redirect::route('admin.roles.index')->with('success', $role->name.' has been updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Role $role) {
+    public function destroy(Request $request, Role $role)
+    {
         if ($request->ajax()) {
             $role->delete();
 
@@ -116,5 +127,4 @@ class RolesController extends Controller {
             return 'You can\'t proceed in delete operation';
         }
     }
-
 }

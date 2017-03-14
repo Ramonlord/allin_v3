@@ -2,16 +2,15 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
-class SettingsRequest extends Request {
-
+class SettingsRequest extends Request
+{
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize() {
+    public function authorize()
+    {
         return true;
     }
 
@@ -20,7 +19,8 @@ class SettingsRequest extends Request {
      *
      * @return array
      */
-    public function rules() {
+    public function rules()
+    {
         switch ($this->method()) {
             case 'GET':
             case 'DELETE': {
@@ -28,27 +28,27 @@ class SettingsRequest extends Request {
                 }
             case 'POST': {
                     return [
-                        'key_cd' => 'required|max:255|unique:settings',
-                        'type' => 'required',
+                        'key_cd'        => 'required|max:255|unique:settings',
+                        'type'          => 'required',
                         'display_value' => 'required',
-                        'value' => 'required',
+                        'value'         => 'required',
                     ];
                 }
             case 'PUT':
             case 'PATCH': {
                     return [
-                        'key_cd' => 'required|max:255|unique:settings,key_cd,' . $this->input('setting_id'),
-                        'type' => 'required',
+                        'key_cd'        => 'required|max:255|unique:settings,key_cd,'.$this->input('setting_id'),
+                        'type'          => 'required',
                         'display_value' => 'required',
-                        'value' => 'required',
+                        'value'         => 'required',
                     ];
                 }
             default:
                 break;
         }
+
         return [
                 //
         ];
     }
-
 }

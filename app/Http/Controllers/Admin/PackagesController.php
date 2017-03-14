@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Feature;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\PackageRequest;
 use App\Package;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Requests\PackageRequest;
-use App\Http\Controllers\Controller;
 
 class PackagesController extends Controller
 {
@@ -41,6 +39,7 @@ class PackagesController extends Controller
 
     /**
      * @param PackageRequest $request
+     *
      * @return mixed
      */
     public function store(PackageRequest $request)
@@ -70,20 +69,22 @@ class PackagesController extends Controller
         $package->save();
 
         foreach ($features as $feature) {
-            $package->features()->attach($feature, ['spec' => $request->input('feature_' . $feature)]);
+            $package->features()->attach($feature, ['spec' => $request->input('feature_'.$feature)]);
         }
         //$package->features()->sync($features);
 
         $package->save();
 
-        return redirect('admin/packages')->with('success', $package->name . ' Package Added Successfully');
+        return redirect('admin/packages')->with('success', $package->name.' Package Added Successfully');
     }
 
     /**
      * Display the specified resource.
      *
      * @param Package $package
+     *
      * @return \Illuminate\Http\Response
+     *
      * @internal param int $id
      */
     public function show(Package $package)
@@ -93,6 +94,7 @@ class PackagesController extends Controller
 
     /**
      * @param Package $package
+     *
      * @return mixed
      */
     public function edit(Package $package)
@@ -104,7 +106,8 @@ class PackagesController extends Controller
 
     /**
      * @param PackageRequest $request
-     * @param Package $package
+     * @param Package        $package
+     *
      * @return mixed
      */
     public function update(PackageRequest $request, Package $package)
@@ -126,14 +129,14 @@ class PackagesController extends Controller
         $package->features()->detach();
 
         foreach ($features as $feature) {
-            $package->features()->attach($feature, ['spec' => $request->input('feature_' . $feature)]);
+            $package->features()->attach($feature, ['spec' => $request->input('feature_'.$feature)]);
         }
 
 //        $package->features()->sync($features);
 
         $package->save();
 
-        return redirect('admin/packages')->with('success', $package->name . ' Package updated Successfully');
+        return redirect('admin/packages')->with('success', $package->name.' Package updated Successfully');
     }
 
     /**
@@ -141,14 +144,16 @@ class PackagesController extends Controller
      *
      * @param Request $request
      * @param Package $package
-     * @return \Illuminate\Http\Response
+     *
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\Response
+     *
      * @internal param int $id
      */
     public function destroy(Request $request, Package $package)
     {
         if ($request->ajax()) {
-
             $package->features()->detach();
 
             $package->delete();

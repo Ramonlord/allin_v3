@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Feature;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Requests\FeatureRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FeatureRequest;
+use Illuminate\Http\Request;
 
 class FeaturesController extends Controller
 {
@@ -38,6 +36,7 @@ class FeaturesController extends Controller
 
     /**
      * @param FeatureRequest $request
+     *
      * @return mixed
      */
     public function store(FeatureRequest $request)
@@ -53,7 +52,9 @@ class FeaturesController extends Controller
      * Display the specified resource.
      *
      * @param Feature $feature
+     *
      * @return \Illuminate\Http\Response
+     *
      * @internal param int $id
      */
     public function show(Feature $feature)
@@ -63,6 +64,7 @@ class FeaturesController extends Controller
 
     /**
      * @param Feature $feature
+     *
      * @return mixed
      */
     public function edit(Feature $feature)
@@ -72,7 +74,8 @@ class FeaturesController extends Controller
 
     /**
      * @param FeatureRequest $request
-     * @param Feature $feature
+     * @param Feature        $feature
+     *
      * @return mixed
      */
     public function update(FeatureRequest $request, Feature $feature)
@@ -91,13 +94,16 @@ class FeaturesController extends Controller
     /**
      * @param Request $request
      * @param Feature $feature
-     * @return string
+     *
      * @throws \Exception
+     *
+     * @return string
      */
     public function destroy(Request $request, Feature $feature)
     {
         if ($request->ajax()) {
             $feature->delete();
+
             return response()->json(['success' => 'Package has been deleted successfully']);
         } else {
             return 'You can\'t proceed in delete operation';

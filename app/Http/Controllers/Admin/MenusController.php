@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Requests\MenuRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MenuRequest;
 use App\Menu;
+use Illuminate\Http\Request;
 
 class MenusController extends Controller
 {
@@ -33,6 +31,7 @@ class MenusController extends Controller
 
     /**
      * @param MenuRequest $request
+     *
      * @return mixed
      */
     public function store(MenuRequest $request)
@@ -47,7 +46,8 @@ class MenusController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -57,6 +57,7 @@ class MenusController extends Controller
 
     /**
      * @param Menu $menu
+     *
      * @return mixed
      */
     public function edit(Menu $menu)
@@ -66,7 +67,7 @@ class MenusController extends Controller
 
     /**
      * @param MenuRequest $request
-     * @param Menu $menu
+     * @param Menu        $menu
      */
     public function update(MenuRequest $request, Menu $menu)
     {
@@ -78,7 +79,7 @@ class MenusController extends Controller
 
         $menu->save();
 
-        return redirect('admin/menus')->with('success', $menu->title . ' Menu Updated Successfully');
+        return redirect('admin/menus')->with('success', $menu->title.' Menu Updated Successfully');
     }
 
     /**
@@ -88,6 +89,7 @@ class MenusController extends Controller
     {
         if ($request->ajax()) {
             $menu->delete();
+
             return response()->json(['success' => 'Menu has been deleted successfully']);
         } else {
             return 'You can\'t proceed in delete operation';

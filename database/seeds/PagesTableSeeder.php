@@ -4,27 +4,23 @@ use Illuminate\Database\Seeder;
 
 class PagesTableSeeder extends Seeder
 {
-
     /**
-     * Auto generated seed file
+     * Auto generated seed file.
      *
      * @return void
      */
     public function run()
     {
-        
-
         \DB::table('pages')->delete();
-        
-        \DB::table('pages')->insert(array (
-            0 => 
-            array (
-                'id' => 1,
-                'title' => 'About Us',
-                'slug' => 'about-us',
+
+        \DB::table('pages')->insert([
+            0 => [
+                'id'            => 1,
+                'title'         => 'About Us',
+                'slug'          => 'about-us',
                 'meta_keywords' => '',
-                'meta_desc' => '',
-                'content' => '<div class="col-md-4">
+                'meta_desc'     => '',
+                'content'       => '<div class="col-md-4">
 <p>This is a Sample Content Page.</p>
 
 <p>&nbsp;</p>
@@ -50,21 +46,20 @@ class PagesTableSeeder extends Seeder
 </ul>
 </div>
 ',
-                'icon' => '',
-                'published' => 1,
+                'icon'         => '',
+                'published'    => 1,
                 'published_at' => '2016-03-31 09:32:17',
-                'blog_post' => 0,
-                'created_at' => '2016-03-31 09:24:42',
-                'updated_at' => '2016-03-31 09:32:17',
-            ),
-            1 => 
-            array (
-                'id' => 2,
-                'title' => 'Sample Blog',
-                'slug' => 'sample-blog',
+                'blog_post'    => 0,
+                'created_at'   => '2016-03-31 09:24:42',
+                'updated_at'   => '2016-03-31 09:32:17',
+            ],
+            1 => [
+                'id'            => 2,
+                'title'         => 'Sample Blog',
+                'slug'          => 'sample-blog',
                 'meta_keywords' => '',
-                'meta_desc' => '',
-                'content' => '<div class="col-md-4">
+                'meta_desc'     => '',
+                'content'       => '<div class="col-md-4">
 <p>This is a Sample Content Page.</p>
 
 <p>&nbsp;</p>
@@ -90,21 +85,20 @@ class PagesTableSeeder extends Seeder
 </ul>
 </div>
 ',
-                'icon' => '',
-                'published' => 1,
+                'icon'         => '',
+                'published'    => 1,
                 'published_at' => '2016-03-31 09:32:17',
-                'blog_post' => 1,
-                'created_at' => '2016-03-31 09:24:42',
-                'updated_at' => '2016-03-31 09:32:17',
-            ),
-            2 => 
-            array (
-                'id' => 3,
-                'title' => 'Sample Blog 2',
-                'slug' => 'sample-blog-2',
+                'blog_post'    => 1,
+                'created_at'   => '2016-03-31 09:24:42',
+                'updated_at'   => '2016-03-31 09:32:17',
+            ],
+            2 => [
+                'id'            => 3,
+                'title'         => 'Sample Blog 2',
+                'slug'          => 'sample-blog-2',
                 'meta_keywords' => '',
-                'meta_desc' => '',
-                'content' => '<div class="col-md-4">
+                'meta_desc'     => '',
+                'content'       => '<div class="col-md-4">
 <p>This is a Sample Content Page.</p>
 
 <p>&nbsp;</p>
@@ -130,21 +124,20 @@ class PagesTableSeeder extends Seeder
 </ul>
 </div>
 ',
-                'icon' => '',
-                'published' => 1,
+                'icon'         => '',
+                'published'    => 1,
                 'published_at' => '2016-03-31 09:32:17',
-                'blog_post' => 1,
-                'created_at' => '2016-03-31 09:24:42',
-                'updated_at' => '2016-03-31 09:32:17',
-            ),
-            3 => 
-            array (
-                'id' => 4,
-                'title' => 'Sample Blog 3',
-                'slug' => 'sample-blog-3',
+                'blog_post'    => 1,
+                'created_at'   => '2016-03-31 09:24:42',
+                'updated_at'   => '2016-03-31 09:32:17',
+            ],
+            3 => [
+                'id'            => 4,
+                'title'         => 'Sample Blog 3',
+                'slug'          => 'sample-blog-3',
                 'meta_keywords' => '',
-                'meta_desc' => '',
-                'content' => '<div class="col-md-4">
+                'meta_desc'     => '',
+                'content'       => '<div class="col-md-4">
 <p>This is a Sample Content Page.</p>
 
 <p>&nbsp;</p>
@@ -170,21 +163,20 @@ class PagesTableSeeder extends Seeder
 </ul>
 </div>
 ',
-                'icon' => '',
-                'published' => 1,
+                'icon'         => '',
+                'published'    => 1,
                 'published_at' => '2016-03-31 09:32:17',
-                'blog_post' => 1,
-                'created_at' => '2016-03-31 09:24:42',
-                'updated_at' => '2016-03-31 09:32:17',
-            ),
-            4 => 
-            array (
-                'id' => 5,
-                'title' => 'Sample Blog 4',
-                'slug' => 'sample-blog-4',
+                'blog_post'    => 1,
+                'created_at'   => '2016-03-31 09:24:42',
+                'updated_at'   => '2016-03-31 09:32:17',
+            ],
+            4 => [
+                'id'            => 5,
+                'title'         => 'Sample Blog 4',
+                'slug'          => 'sample-blog-4',
                 'meta_keywords' => '',
-                'meta_desc' => '',
-                'content' => '<div class="col-md-4">
+                'meta_desc'     => '',
+                'content'       => '<div class="col-md-4">
 <p>This is a Sample Content Page.</p>
 
 <p>&nbsp;</p>
@@ -210,15 +202,13 @@ class PagesTableSeeder extends Seeder
 </ul>
 </div>
 ',
-                'icon' => '',
-                'published' => 1,
+                'icon'         => '',
+                'published'    => 1,
                 'published_at' => '2016-03-31 09:32:17',
-                'blog_post' => 1,
-                'created_at' => '2016-03-31 09:24:42',
-                'updated_at' => '2016-03-31 09:32:17',
-            ),
-        ));
-        
-        
+                'blog_post'    => 1,
+                'created_at'   => '2016-03-31 09:24:42',
+                'updated_at'   => '2016-03-31 09:32:17',
+            ],
+        ]);
     }
 }

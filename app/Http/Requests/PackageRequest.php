@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class PackageRequest extends Request
 {
     /**
@@ -30,20 +28,20 @@ class PackageRequest extends Request
             }
             case 'POST': {
                 return [
-                    'name' => 'required|max:60|unique:packages,name',
-                    'plan' => 'required',
-                    'cost' => 'required',
-                    'cost_per' => 'required',
+                    'name'          => 'required|max:60|unique:packages,name',
+                    'plan'          => 'required',
+                    'cost'          => 'required',
+                    'cost_per'      => 'required',
                     'pricing_order' => 'required',
                 ];
             }
             case 'PUT':
             case 'PATCH': {
                 return [
-                    'name' => 'required|max:60|unique:packages,id,' . $this->input('package_id'),
-                    'plan' => 'required',
-                    'cost' => 'required',
-                    'cost_per' => 'required',
+                    'name'          => 'required|max:60|unique:packages,id,'.$this->input('package_id'),
+                    'plan'          => 'required',
+                    'cost'          => 'required',
+                    'cost_per'      => 'required',
                     'pricing_order' => 'required',
                 ];
             }

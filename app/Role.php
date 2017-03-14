@@ -2,10 +2,8 @@
 
 namespace App;
 
-use App\BaseModel;
-
-class Role extends BaseModel {
-
+class Role extends BaseModel
+{
     /**
      * The attributes that aren't mass assignable.
      *
@@ -13,8 +11,8 @@ class Role extends BaseModel {
      */
     protected $guarded = ['id'];
 
-    public function Users() {
+    public function Users()
+    {
         return $this->hasMany(User::class);
     }
-
 }

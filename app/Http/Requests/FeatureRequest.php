@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class FeatureRequest extends Request
 {
     /**
@@ -36,12 +34,13 @@ class FeatureRequest extends Request
             case 'PUT':
             case 'PATCH': {
                 return [
-                    'name' => 'required|max:255|unique:features,id,' . $this->input('feature_id'),
+                    'name' => 'required|max:255|unique:features,id,'.$this->input('feature_id'),
                 ];
             }
             default:
                 break;
         }
+
         return [
             //
         ];

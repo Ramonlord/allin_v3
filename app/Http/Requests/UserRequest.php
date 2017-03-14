@@ -2,16 +2,15 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
-class UserRequest extends Request {
-
+class UserRequest extends Request
+{
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize() {
+    public function authorize()
+    {
         return true;
     }
 
@@ -20,7 +19,8 @@ class UserRequest extends Request {
      *
      * @return array
      */
-    public function rules() {
+    public function rules()
+    {
         switch ($this->method()) {
             case 'GET':
             case 'DELETE': {
@@ -28,23 +28,23 @@ class UserRequest extends Request {
                 }
             case 'POST': {
                     return [
-                        'name' => 'required|max:255',
-                        'email' => 'required|email|max:255|unique:users',
+                        'name'     => 'required|max:255',
+                        'email'    => 'required|email|max:255|unique:users',
                         'password' => 'required|confirmed|min:6',
-                        'role' => 'required',
-                        'address' => 'required',
-                        'avatar' => 'mimes:jpg,jpeg,png|max:500'
+                        'role'     => 'required',
+                        'address'  => 'required',
+                        'avatar'   => 'mimes:jpg,jpeg,png|max:500',
                     ];
                 }
             case 'PUT':
             case 'PATCH': {
                     return [
-                        'name' => 'required|max:255',
-                        'email' => 'required|email|max:255|unique:users,email,' . $this->input('user_id'),
+                        'name'     => 'required|max:255',
+                        'email'    => 'required|email|max:255|unique:users,email,'.$this->input('user_id'),
                         'password' => 'confirmed|min:6',
-                        'role' => 'required',
-                        'address' => 'required',
-                        'avatar' => 'mimes:jpg,jpeg,png|max:500'
+                        'role'     => 'required',
+                        'address'  => 'required',
+                        'avatar'   => 'mimes:jpg,jpeg,png|max:500',
                     ];
                 }
             default:
@@ -54,5 +54,4 @@ class UserRequest extends Request {
         return [
         ];
     }
-
 }

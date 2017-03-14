@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class ProfileRequest extends Request
 {
     /**
@@ -34,16 +32,17 @@ class ProfileRequest extends Request
             case 'PUT':
             case 'PATCH': {
                 return [
-                    'name' => 'required|max:255',
-                    'password' => 'confirmed|min:6',
-                    'address' => 'required',
+                    'name'      => 'required|max:255',
+                    'password'  => 'confirmed|min:6',
+                    'address'   => 'required',
                     'job_title' => 'required',
-                    'avatar' => 'mimes:jpg,jpeg,png|max:500'
+                    'avatar'    => 'mimes:jpg,jpeg,png|max:500',
                 ];
             }
             default:
                 break;
         }
+
         return [
             //
         ];

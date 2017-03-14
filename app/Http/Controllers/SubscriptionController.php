@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Package;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 class SubscriptionController extends Controller
 {
     /**
@@ -64,7 +62,7 @@ class SubscriptionController extends Controller
 
         $user->save();
 
-        return redirect('member/profile')->with('success', $package->name . ' Package has been selected Successfully');
+        return redirect('member/profile')->with('success', $package->name.' Package has been selected Successfully');
     }
 
     public function postSwapSubscription(Request $request)
@@ -73,7 +71,7 @@ class SubscriptionController extends Controller
 
         $user = \Auth::user();
         if ($package->id == getSetting('DEFAULT_PACKAGE_ID')) {
-            /**
+            /*
              * this handle changing package to free package
              */
             if ($user->subscribed('MEMBERSHIP')) {
@@ -83,16 +81,15 @@ class SubscriptionController extends Controller
 
             $user->save();
 
-            return redirect('member/profile')->with('success', $package->name . ' Package has been selected Successfully');
+            return redirect('member/profile')->with('success', $package->name.' Package has been selected Successfully');
         } elseif ($user && $user->subscribed('MEMBERSHIP')) {
-
             $user->subscription('MEMBERSHIP')->swap($package->plan);
 
             $user->package_id = $package->id;
 
             $user->save();
 
-            return redirect('member/profile')->with('success', $package->name . ' Package has been selected Successfully');
+            return redirect('member/profile')->with('success', $package->name.' Package has been selected Successfully');
         } else {
             return redirect('member/profile')->with('error', 'you are facing some errors');
         }
@@ -114,7 +111,7 @@ class SubscriptionController extends Controller
     public function getDownloadInvoice($invoice)
     {
         return \Auth::user()->downloadInvoice($invoice, [
-            'vendor' => getSetting('SITE_TITLE'),
+            'vendor'  => getSetting('SITE_TITLE'),
             'product' => getSetting('SITE_TITLE'),
         ]);
     }
@@ -138,7 +135,6 @@ class SubscriptionController extends Controller
 
         $user->save();
 
-        return redirect('member/profile')->with('success', $package->name . ' Package has been cancelled Successfully');
+        return redirect('member/profile')->with('success', $package->name.' Package has been cancelled Successfully');
     }
-
 }

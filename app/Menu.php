@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\BaseModel;
-
 class Menu extends BaseModel
 {
     /**
@@ -13,7 +11,7 @@ class Menu extends BaseModel
      */
     protected $guarded = ['id'];
 
-    function getStatusAttribute()
+    public function getStatusAttribute()
     {
         return $this->attributes['status'] ? 'active' : 'inactive';
     }

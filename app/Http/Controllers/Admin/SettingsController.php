@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Requests\SettingsRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SettingsRequest;
 use App\Setting;
-use Redirect;
 use Carbon;
+use Illuminate\Http\Request;
+use Redirect;
 
-class SettingsController extends Controller {
-
+class SettingsController extends Controller
+{
     /**
      * SettingsController constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -24,7 +24,8 @@ class SettingsController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         return view('admin.settings.index');
     }
 
@@ -33,38 +34,40 @@ class SettingsController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
         return view('admin.settings.select_type');
     }
 
-    public function createForm($type) {
+    public function createForm($type)
+    {
         return view('admin.settings.create_edit')->with(compact('type'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(SettingsRequest $request) {
-	
+    public function store(SettingsRequest $request)
+    {
         $setting = new Setting($request->except('_token', 'setting_id', 'value'));
 
         if ($request->hasFile('value')) {
-			
-			$validator = \Validator::make($request->all(), [
-				'value' => 'mimes:jpg,jpeg,png,txt,csv,zip,pdf',
-			]);
-			
-			if ($validator->fails()) {
-				return back()->withErrors($validator)
-							->withInput();
-			}
-			
-            $destinationPath = public_path() . '/uploads/settings';
+            $validator = \Validator::make($request->all(), [
+                'value' => 'mimes:jpg,jpeg,png,txt,csv,zip,pdf',
+            ]);
 
-            $value = $setting->key_cd . '.' . $request->file('value')->getClientOriginalExtension();
+            if ($validator->fails()) {
+                return back()->withErrors($validator)
+                            ->withInput();
+            }
+
+            $destinationPath = public_path().'/uploads/settings';
+
+            $value = $setting->key_cd.'.'.$request->file('value')->getClientOriginalExtension();
 
             $request->file('value')->move($destinationPath, $value);
 
@@ -77,27 +80,32 @@ class SettingsController extends Controller {
 
         $setting->save();
 
-        return Redirect::route('admin.settings.index')->with('success', $setting->display_value . ' has been added Successfully');
+        return Redirect::route('admin.settings.index')->with('success', $setting->display_value.' has been added Successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Setting $setting
+     * @param Setting $setting
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Setting $setting
+     * @param Setting $setting
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Setting $setting) {
+    public function edit(Setting $setting)
+    {
         $type = null;
+
         return view('admin.settings.create_edit')->with(compact('setting', 'type'));
     }
 
@@ -106,11 +114,13 @@ class SettingsController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Setting $setting
+     * @param \Illuminate\Http\Request $request
+     * @param Setting                  $setting
+     *
      * @return \Illuminate\Http\Response
      */
-    public function update(SettingsRequest $request, Setting $setting) {
+    public function update(SettingsRequest $request, Setting $setting)
+    {
         $setting->key_cd = $request->key_cd;
 
         $setting->type = $request->type;
@@ -118,20 +128,19 @@ class SettingsController extends Controller {
         $setting->display_value = $request->display_value;
 
         if ($request->hasFile('value')) {
-			
-			$validator = \Validator::make($request->all(), [
-				'value' => 'mimes:jpg,jpeg,png,txt,csv,zip,pdf',
-			]);
-			
-			if ($validator->fails()) {
-				return back()->withErrors($validator)
-							->withInput();
-			}
+            $validator = \Validator::make($request->all(), [
+                'value' => 'mimes:jpg,jpeg,png,txt,csv,zip,pdf',
+            ]);
+
+            if ($validator->fails()) {
+                return back()->withErrors($validator)
+                            ->withInput();
+            }
             @unlink($setting->value);
 
-            $destinationPath = public_path() . '/uploads/settings';
+            $destinationPath = public_path().'/uploads/settings';
 
-            $value = $setting->key_cd . '.' . $request->file('value')->getClientOriginalExtension();
+            $value = $setting->key_cd.'.'.$request->file('value')->getClientOriginalExtension();
 
             $request->file('value')->move($destinationPath, $value);
 
@@ -146,7 +155,7 @@ class SettingsController extends Controller {
 
         $setting->save();
 
-        return Redirect::route('admin.settings.index')->with('success', $setting->display_value . ' has been Updated Successfully');
+        return Redirect::route('admin.settings.index')->with('success', $setting->display_value.' has been Updated Successfully');
     }
 
 //update
@@ -154,15 +163,17 @@ class SettingsController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Setting $setting
+     * @param Setting $setting
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Setting $setting) {
+    public function destroy(Request $request, Setting $setting)
+    {
         return '';
     }
 
-    public function fileDownload(Setting $setting) {
+    public function fileDownload(Setting $setting)
+    {
         return response()->download($setting->value);
     }
-
 }

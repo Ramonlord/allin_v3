@@ -2,16 +2,14 @@
 
 namespace App;
 
-use App\BaseModel;
-
 /**
  * @property mixed name
- * @property array|integer cost
+ * @property array|int cost
  * @property array|string cost_per
  * @property array|string plan
- * @property array|boolean status
- * @property array|boolean featured
- * @property array|integer pricing_order
+ * @property array|bool status
+ * @property array|bool featured
+ * @property array|int pricing_order
  */
 class Package extends BaseModel
 {
@@ -22,17 +20,17 @@ class Package extends BaseModel
      */
     protected $guarded = ['id'];
 
-    function scopeActive($query)
+    public function scopeActive($query)
     {
         return $query->where('status', 1)->orderBy('pricing_order');
     }
 
-    function getStatusAttribute()
+    public function getStatusAttribute()
     {
         return $this->attributes['status'] ? 'active' : 'inactive';
     }
 
-    function getFeaturedAttribute()
+    public function getFeaturedAttribute()
     {
         return $this->attributes['featured'] ? 'featured' : 'normal';
     }

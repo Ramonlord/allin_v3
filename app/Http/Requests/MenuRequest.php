@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class MenuRequest extends Request
 {
     /**
@@ -30,24 +28,25 @@ class MenuRequest extends Request
             }
             case 'POST': {
                 return [
-                    'title' => 'required|max:255',
-                    'location' => 'required|max:255',
-                    'url' => 'required|max:255',
+                    'title'      => 'required|max:255',
+                    'location'   => 'required|max:255',
+                    'url'        => 'required|max:255',
                     'item_order' => 'required|max:255',
                 ];
             }
             case 'PUT':
             case 'PATCH': {
                 return [
-                    'title' => 'required|max:255',
-                    'location' => 'required|max:255',
-                    'url' => 'required|max:255',
+                    'title'      => 'required|max:255',
+                    'location'   => 'required|max:255',
+                    'url'        => 'required|max:255',
                     'item_order' => 'required|max:255',
                 ];
             }
             default:
                 break;
         }
+
         return [
             //
         ];

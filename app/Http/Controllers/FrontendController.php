@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Page;
-use App\Package;
 use App\Feature;
+use App\Package;
+use App\Page;
+use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
@@ -45,13 +43,13 @@ class FrontendController extends Controller
 
         \Mail::send('emails.contact',
             [
-                'name' => $name,
-                'email' => $email,
-                'subject' => $subject,
-                'form_message' => $form_message
+                'name'         => $name,
+                'email'        => $email,
+                'subject'      => $subject,
+                'form_message' => $form_message,
             ],
             function ($message) use ($to_email) {
-                $message->to($to_email, getSetting('SITE_TITLE') . ' Support')->subject('Contact Form Message');
+                $message->to($to_email, getSetting('SITE_TITLE').' Support')->subject('Contact Form Message');
             }
         );
 

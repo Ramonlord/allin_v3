@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreatePackageFeatureTable extends Migration
 {
@@ -14,8 +14,8 @@ class CreatePackageFeatureTable extends Migration
     {
         Schema::create('feature_package', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('package_id')->unsigned();;
-            $table->integer('feature_id')->unsigned();;
+            $table->integer('package_id')->unsigned();
+            $table->integer('feature_id')->unsigned();
             $table->string('spec');
             $table->timestamps();
         });

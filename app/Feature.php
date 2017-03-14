@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\BaseModel;
 /**
  * @property array|string name
  * @property array|string status
@@ -16,12 +15,12 @@ class Feature extends BaseModel
      */
     protected $guarded = ['id'];
 
-    function scopeActive($query)
+    public function scopeActive($query)
     {
         return $query->where('status', 1);
     }
 
-    function getStatusAttribute()
+    public function getStatusAttribute()
     {
         return $this->attributes['status'] ? 'active' : 'inactive';
     }

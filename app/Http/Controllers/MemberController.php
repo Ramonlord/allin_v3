@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Feature;
 use App\Http\Requests\ProfileRequest;
 use App\Package;
-use App\Feature;
 use Illuminate\Support\Facades\Session;
 
 class MemberController extends Controller
@@ -14,15 +14,13 @@ class MemberController extends Controller
      */
     public function __construct()
     {
-		if(!\Auth::guest())
-		{
-			if (\Auth::user()->package_id != getSetting('DEFAULT_PACKAGE_ID') && \Auth::user()->package_id != 0 && !\Auth::user()->subscribed('MEMBERSHIP')) {
-				Session::put('warning', 'Your Subscription not valid!');
-			}else
-			{
-				Session::forget('warning');
-			}
-		}
+        if (!\Auth::guest()) {
+            if (\Auth::user()->package_id != getSetting('DEFAULT_PACKAGE_ID') && \Auth::user()->package_id != 0 && !\Auth::user()->subscribed('MEMBERSHIP')) {
+                Session::put('warning', 'Your Subscription not valid!');
+            } else {
+                Session::forget('warning');
+            }
+        }
         $this->middleware('auth');
     }
 
@@ -36,6 +34,7 @@ class MemberController extends Controller
         if (\Auth::user()->role->name == 'Admin') {
             return redirect('admin/dashboard');
         }
+
         return view('member.home');
     }
 
@@ -78,18 +77,17 @@ class MemberController extends Controller
         }
 
         if ($request->hasFile('avatar')) {
+            $destinationPath = public_path().'/uploads/avatars';
 
-            $destinationPath = public_path() . '/uploads/avatars';
-
-            if ($user->avatar != "uploads/avatars/avatar.png") {
+            if ($user->avatar != 'uploads/avatars/avatar.png') {
                 @unlink($user->avatar);
             }
 
-            $avatar = hash('sha256', mt_rand()) . '.' . $request->file('avatar')->getClientOriginalExtension();
+            $avatar = hash('sha256', mt_rand()).'.'.$request->file('avatar')->getClientOriginalExtension();
 
             $request->file('avatar')->move($destinationPath, $avatar);
 
-            \Image::make(asset('uploads/avatars/' . $avatar))->fit(300, null, null, 'top-left')->save('uploads/avatars/' . $avatar);
+            \Image::make(asset('uploads/avatars/'.$avatar))->fit(300, null, null, 'top-left')->save('uploads/avatars/'.$avatar);
 
             $user->avatar = $avatar;
         }
